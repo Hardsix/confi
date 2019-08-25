@@ -7,4 +7,5 @@ export const AppConfig = {
   dbHost: process.env.DB_HOST,
   dbPort: parseInt(process.env.DB_PORT, 10),
   dbName: process.env.DB_DATABASE,
+  jwtSecret: process.env.JWT_SECRET,
 };

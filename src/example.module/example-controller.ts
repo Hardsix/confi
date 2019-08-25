@@ -1,14 +1,14 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Req,
-  Get,
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
+import { Request } from 'express';
 import { getManager } from 'typeorm';
 import { ExampleModel } from './example-model';
-import { Request } from 'express';
 
 @Controller('examples')
 export class ExampleController {
