@@ -16,17 +16,24 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm",
+    "migration:generate": "npm run typeorm -- migration:generate --connection  --name ",
+    "migration:run": "npm run typeorm -- migration:run"
   },
   "dependencies": {
     "@nestjs/common": "^6.5.3",
     "@nestjs/core": "^6.5.3",
     "@nestjs/microservices": "^6.5.3",
     "@nestjs/platform-express": "^6.5.3",
+    "@nestjs/swagger": "^3.1.0",
     "@nestjs/websockets": "^6.5.3",
+    "dotenv": "^8.1.0",
+    "pg": "^7.12.1",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.0",
-    "rxjs": "6.5.2"
+    "rxjs": "6.5.2",
+    "typeorm": "^0.2.18"
   },
   "devDependencies": {
     "@nestjs/testing": "6.5.3",
@@ -34,7 +41,6 @@
     "@types/jest": "24.0.17",
     "@types/node": "12.7.2",
     "@types/supertest": "2.0.8",
-    "dotenv": "^8.1.0",
     "jest": "24.9.0",
     "prettier": "1.18.2",
     "supertest": "4.0.2",
