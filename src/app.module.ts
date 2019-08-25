@@ -1,11 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import AuthController from './auth.module/auth-controller';
-import { AuthMiddleware } from './auth.module/auth-middleware';
-import { ExampleController } from './example.module/example-controller';
+import AuthController from './auth/auth-controller';
+import { AuthMiddleware } from './auth/auth-middleware';
+import { ExampleController } from './example/example-controller';
+import { BookingController } from './booking/booking-controller';
 
 @Module({
   imports: [],
-  controllers: [ExampleController, AuthController],
+  controllers: [ExampleController, AuthController, BookingController],
 })
 
 export class AppModule implements NestModule {

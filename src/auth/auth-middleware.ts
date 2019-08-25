@@ -2,7 +2,7 @@ import { NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { AppConfig } from '../shared/config/config';
-import userService from '../user.module/user-service';
+import userService from '../user/user-service';
 
 const tokenRegex = /Bearer (.*)/;
 
@@ -35,7 +35,7 @@ export class AuthMiddleware implements NestMiddleware {
       return next();
     }
 
-    req.user = user;
+    req['user'] = user;
 
     next();
   }

@@ -1,7 +1,7 @@
 import { Body, Controller, NotFoundException, Post, Req, UnauthorizedException } from '@nestjs/common';
 import { ApiModelProperty, ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
-import userService from '../user.module/user-service';
+import userService from '../user/user-service';
 import authService from './auth-service';
 
 export class LoginDto {

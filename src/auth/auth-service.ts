@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { AppConfig } from '../shared/config/config';
-import userService from '../user.module/user-service';
+import userService from '../user/user-service';
 
 export class AuthService {
   generateToken(username: string): string {

@@ -10,7 +10,7 @@ module.exports = [{
   database: process.env.DB_DATABASE,
   synchronize: true,
   entities: [
-    "src/**.module/*-model.ts"
+    "src/**/*-model.ts"
   ],
   subscribers: [
     "src/**.module/*-subscriber.ts"
