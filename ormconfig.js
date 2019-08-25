@@ -7,7 +7,7 @@ module.exports = [{
   port: process.env.DB_PORT,
   username: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
-  database: process.env.DB_NAME,
+  database: process.env.DB_DATABASE,
   synchronize: true,
   entities: [
     "src/**.module/*-model.ts"
