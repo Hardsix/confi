@@ -1,19 +1,19 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  NotFoundException,
+  Param,
   Post,
   Req,
-  Delete,
-  Param,
-  NotFoundException,
   UseGuards,
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
 import { getManager } from 'typeorm';
-import { BookingModel } from './booking-model';
 import { IsAuthenticatedGuard } from '../auth/is-authenticated-guard';
+import { BookingModel } from './booking-model';
 
 @Controller('bookings')
 export class BookingController {
