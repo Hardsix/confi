@@ -5,6 +5,7 @@ import { UserModel } from 'src/user/user-model';
 import { AppConfig } from '../shared/config/config';
 import userService from '../user/user-service';
 import { AUTH_TYPE, JWT_TYPE } from './const';
+import { UnauthorizedException } from '@nestjs/common';
 
 const bearerTokenRegex = /Bearer (.*)/;
 const basicAuthRegex = /Basic (.*)/;
@@ -16,7 +17,7 @@ export class AuthContext {
 }
 
 export class AuthService {
-  generateToken(tokenType: JWT_TYPE, username: string): string {
+  generateToken(tokenType: JWT_TYPE, username: string, secret: string = AppConfig.jwtSecret): string {
     const user = userService.getByUsername(username);
 
     const payload = {
@@ -28,7 +29,7 @@ export class AuthService {
     const duration = tokenType === JWT_TYPE.ACCESS ?
       AppConfig.jwtAccessDuration : AppConfig.jwtRefreshDuration;
 
-    const token = jwt.sign(payload, AppConfig.jwtSecret, {
+    const token = jwt.sign(payload, secret, {
       expiresIn: duration,
     });
 
@@ -44,7 +45,13 @@ export class AuthService {
     const bearerMatch = authRaw.match(bearerTokenRegex);
     if (bearerMatch) {
       const tokenValue = bearerMatch[1];
-      const token = jwt.verify(tokenValue, AppConfig.jwtSecret);
+      
+      let token;
+      try {
+        token = jwt.verify(tokenValue, AppConfig.jwtSecret);
+      } catch (err) {
+        throw new UnauthorizedException();
+      }
 
       const userId = token.userId;
       const user = userService.getById(userId);

@@ -1,11 +1,14 @@
 import * as _ from 'lodash';
 import { UserModel } from './user-model';
 
+export const ADMIN_USERNAME = 'admin';
+export const ADMIN_PASSWORD = 'thisIsNotSecure';
+
 const users: UserModel[] = [
   {
     id: 1,
-    username: 'admin',
-    password: 'thisIsNotSecure',
+    username: ADMIN_USERNAME,
+    password: ADMIN_PASSWORD,
   },
 ];
 
