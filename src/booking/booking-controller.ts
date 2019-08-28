@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   Body,
   Controller,
@@ -8,12 +9,15 @@ import {
   Post,
   Req,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
+import { validate, } from 'class-validator';
 import { Request } from 'express';
 import { getManager } from 'typeorm';
 import { IsAuthenticatedGuard } from '../auth/is-authenticated-guard';
 import { BookingModel } from './booking-model';
+import { ValidationError } from '../shared/error/errors';
 
 @Controller('bookings')
 export class BookingController {
@@ -28,7 +32,14 @@ export class BookingController {
     booking.email = data.email;
     booking.phoneNumber = data.phoneNumber;
 
-    return await manager.save(booking);
+    const errors = await validate(booking);
+    if (errors.length > 0) {
+      const invalidFields = _.map(errors, e => `'${e.property}'`);
+      const fieldList = _.join(invalidFields, ', ');
+      throw new ValidationError(`Fields invalid: ${fieldList}`);
+    } else {
+      return await manager.save(booking);
+    }
   }
 
   @ApiResponse({ type: BookingModel, status: 200, isArray: true })
