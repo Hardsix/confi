@@ -1,35 +1,39 @@
-import { Body, Controller, NotFoundException, Post, Req, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Post, Req, UnauthorizedException, } from '@nestjs/common';
 import { ApiModelProperty, ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
-import userService from '../user/user-service';
+import { JWT_TYPE } from './const';
 import authService from './auth-service';
+import { UserModel } from 'src/user/user-model';
 
-export class LoginDto {
+export class TokenRequestDto {
   @ApiModelProperty()
-  username: string;
-
-  @ApiModelProperty()
-  password: string;
+  tokenType: JWT_TYPE;
 }
 
-export class LoginResponseDto {
+export class TokenResponseDto {
   @ApiModelProperty()
-  accessToken: string;
+  token: string;
+
+  @ApiModelProperty()
+  tokenType: JWT_TYPE;
 }
 
-@Controller('login')
+
+@Controller('auth')
 export default class AuthController {
-  @Post()
-  @ApiResponse({ type: LoginResponseDto, status: 201 })
-  async login(@Body() data: LoginDto, @Req() request: Request): Promise<LoginResponseDto> {
-    const credentialsValid = userService.areCredentialsValid(data.username, data.password);
-    if (!credentialsValid) {
+  @Post('/token')
+  @ApiResponse({ type: TokenResponseDto, status: 201 })
+  async login(@Body() data: TokenRequestDto, @Req() request: Request): Promise<TokenResponseDto> {
+    const user: UserModel = request['user'];
+    if (!user) {
       throw new UnauthorizedException();
     }
 
-    const accessToken = authService.generateToken(data.username);
+    const tokenType = data.tokenType;
+    const token = authService.generateToken(data.tokenType, user.username);
     return {
-      accessToken,
+      token,
+      tokenType,
     };
   }
 }
