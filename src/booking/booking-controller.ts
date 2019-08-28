@@ -9,12 +9,12 @@ import {
   Post,
   Req,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 import { validate, } from 'class-validator';
 import { Request } from 'express';
 import { getManager } from 'typeorm';
+import UUID from 'uuid/v1';
 import { IsAuthenticatedGuard } from '../auth/is-authenticated-guard';
 import { BookingModel } from './booking-model';
 import { ValidationError } from '../shared/error/errors';
@@ -31,6 +31,8 @@ export class BookingController {
     booking.lastName = data.lastName;
     booking.email = data.email;
     booking.phoneNumber = data.phoneNumber;
+
+    booking.confirmationCode = UUID();
 
     const errors = await validate(booking);
     if (errors.length > 0) {

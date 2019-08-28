@@ -25,4 +25,8 @@ export class BookingModel {
   @IsPhoneNumber(null)
   @Column()
   phoneNumber: string;
+
+  @ApiModelProperty({ readOnly: true })
+  @Column()
+  confirmationCode: string;
 }
