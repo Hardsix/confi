@@ -40,4 +40,5 @@ This project has flaws, some because it's a play project and some due to lack of
 - the project only has end to end tests
   - TO DO:
     End to end tests that interact with db, using db raised per suite as a docker image
+    
     Unit tests for services
