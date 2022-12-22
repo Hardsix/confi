@@ -24,7 +24,7 @@
     "@nestjs/websockets": "^6.5.3",
     "class-validator": "^0.10.0",
     "dotenv": "^8.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.15",
     "pg": "^7.12.1",
     "reflect-metadata": "0.1.13",
